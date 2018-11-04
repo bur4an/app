@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { hot } from 'react-hot-loader'
-//import Input from './Form/Input.jsx'
-import Ebay from './Ebay/FetchForm.jsx'
-import CSVdata from './CSV/FetchForm.jsx'
+
+import Input from './Form/Input.jsx'
+
 const REACT_VERSION = React.version;
 
 class App extends React.Component {
@@ -10,8 +11,7 @@ class App extends React.Component {
     return(
       <div>
           <div align="center"> React version: {REACT_VERSION} </div>
-          <CSVdata />
-          <Ebay />
+          <Input />
       </div>
     )
   }

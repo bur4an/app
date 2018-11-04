@@ -6,6 +6,12 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import List from './List.jsx';
+import styled from 'styled-components';
+
+const Container = styled.div`
+ text-align: center;
+`;
 
 const styles = theme => ({
   container: {
@@ -34,7 +40,7 @@ const styles = theme => ({
 class TextFields extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = {data: [], value: ''};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -45,26 +51,28 @@ class TextFields extends React.Component {
   }
 
   handleSubmit(event) {
-    alert(this.state.value)
+    fetch('/msgraph/users', {
+        method:'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+        })
+      .then(res => res.json())
+      .then(list => this.setState({ data: list }));
     event.preventDefault();
   }
 
   render() {
     const { classes } = this.props;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <TextField
-          id="standard-name"
-          label="Name"
-          className={classes.textField}
-          value={this.state.value}
-          onChange={this.handleChange}
-          margin="normal"
-        />
-      <Button variant="contained" color="primary" className={classes.button} type="submit">
-        Submit
-      </Button>
-      </form>
+      <Container>
+        <form onSubmit={this.handleSubmit}>
+        <Button variant="contained" color="primary" className={classes.button} type="submit">
+          List Users
+        </Button>
+        </form>
+        <List data={this.state.data} />
+      </Container>
     );
   }
 }

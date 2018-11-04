@@ -28,10 +28,12 @@
   },
   "dependencies": {
     "@material-ui/core": "^3.2.0",
+    "@material-ui/icons": "^3.0.1",
     "ad": "^0.3.2",
     "cors": "^2.8.4",
     "ebay-api": "^1.13.7",
     "fast-csv": "^2.4.1",
+    "flexboxgrid": "^6.3.1",
     "fs": "0.0.1-security",
     "hbs": "^4.0.1",
     "node-powershell": "^3.3.1",
@@ -41,6 +43,7 @@
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
     "react-router-dom": "^4.3.1",
+    "styled-components": "^4.0.3",
     "superagent": "^4.0.0-beta.5",
     "uuid": "^3.3.2"
   }

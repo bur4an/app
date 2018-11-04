@@ -1,6 +1,4 @@
 node_modules
-public/bundle.js
+public
 unusedComponents
-routes/config.js
-bin/cert
-files
+utils

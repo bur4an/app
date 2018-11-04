@@ -5,7 +5,7 @@ const passport = require('passport');
 const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const uuid = require('uuid');
 const msgraph = require('./graphHelper');
-const creds = require('./config')
+const creds = require('../utils/config')
 
 const callback = (iss, sub, profile, accessToken, refreshToken, done) => {
   done(null, {
@@ -33,28 +33,31 @@ router.get('/', (req, res) => {
   if (!req.isAuthenticated()) {
     res.redirect('/msgraph/token')
   } else {
-      res.render('index')
+      res.redirect('/')
   }
 });
 
-router.post('/', (req, res) => {
+router.get('/users', (req, res) => {
   if (!req.isAuthenticated()) {
     res.redirect('/msgraph/token');
   } else {
-      // set password
-      msgraph.setPassword(req.session.token, req.body.upn, req.body.password, function(err, result){
-        console.log(result.body)
-        result.body.error ?
-          res.send(result.body.error.message + "  | <a href='/msgraph'>home</a>")
-          :
-          res.send("Success" + " | <a href='/msgraph'>home</a>")
-
-      })
-
       //get all users
-      /*msgraph.getUsers(req.session.token, function(err, result){
+      msgraph.getUsers(req.session.token, function(err, result){
           console.log(result.body)
-      })*/
+          res.send(result.body.value)
+      })
+  }
+});
+router.post('/resetpassword', (req, res) => {
+  if (!req.isAuthenticated()) {
+    res.redirect('/msgraph/token');
+  } else {
+    // set password
+    msgraph.setPassword(req.session.token, req.body.id, req.body.newpassword, function(err, result){
+      console.log(result.body)
+      result.body.error ? res.send(result.body.error.message) : res.send("SUCCESS");
+
+    })
   }
 });
 
@@ -64,7 +67,7 @@ router.get('/token',
     (req, res) => {
       //Do something here since you have the token now
       req.session.token = req.user.accessToken;
-      res.redirect('/msgraph')
+      res.redirect('/')
 
     }
 );
@@ -75,7 +78,7 @@ router.get('/disconnect',
       req.session.destroy(() => {
         req.logOut();
         res.clearCookie('graphNodeCookie');
-        res.redirect('/msgraph')
+        res.redirect('/')
       });
 
     }

@@ -10,8 +10,8 @@ var path = require('path');
 //var http = require('http');
 var https = require('https');
 var certConfig = {
- key: fs.readFileSync(path.resolve(__dirname, './cert/key.pem'), 'utf8'),
- cert: fs.readFileSync(path.resolve(__dirname, './cert/chain.pem'), 'utf8')
+ key: fs.readFileSync(path.resolve(__dirname, '../utils/cert/key.pem'), 'utf8'),
+ cert: fs.readFileSync(path.resolve(__dirname, '../utils/cert/chain.pem'), 'utf8')
 };
 
 /**
