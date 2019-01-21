@@ -40,7 +40,7 @@ const styles = theme => ({
 class TextFields extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {data: [], value: ''};
+    this.state = {data: [], value: 'P2 Tickets'};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -51,14 +51,14 @@ class TextFields extends React.Component {
   }
 
   handleSubmit(event) {
-    fetch('/msgraph/users', {
-        method:'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-        })
-      .then(res => res.json())
-      .then(list => this.setState({ data: list }));
+      fetch('/cwapi', {
+          method:'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+          })
+        .then(res => res.json())
+        .then(list => {console.log(list); this.setState({ data: list })});
     event.preventDefault();
   }
 
@@ -66,10 +66,16 @@ class TextFields extends React.Component {
     const { classes } = this.props;
     return (
       <Container>
-        <form onSubmit={this.handleSubmit}>
-        <Button variant="contained" color="primary" className={classes.button} type="submit">
-          List Users
+        /*<Button variant="outlined" href="/msgraph" className={classes.button}>
+          Connect
         </Button>
+        <Button variant="outlined" href="/msgraph/disconnect" className={classes.button}>
+          Disconnect
+        </Button>*/
+        <form onSubmit={this.handleSubmit}>
+          <Button type="submit" variant="contained" color="primary" className={classes.button}>
+            Load Tickets
+          </Button>
         </form>
         <List data={this.state.data} />
       </Container>

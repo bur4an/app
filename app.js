@@ -29,11 +29,13 @@ const ebay = require('./routes/ebay')
 const csvdata = require('./routes/csvdata')
 const msgraph = require('./routes/msgraph');
 const webhook = require('./routes/webhook')
+const cwapi = require('./routes/cwapi')
 
 app.use('/ebay', ebay)
 app.use('/csvdata', csvdata)
 app.use('/msgraph', msgraph);
 app.use('/webhook', webhook)
+app.use('/cwapi', cwapi)
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.

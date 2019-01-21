@@ -5,7 +5,7 @@ const passport = require('passport');
 const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const uuid = require('uuid');
 const msgraph = require('./graphHelper');
-const creds = require('../utils/config')
+const creds = require('../utils/config').msgraph
 
 const callback = (iss, sub, profile, accessToken, refreshToken, done) => {
   done(null, {

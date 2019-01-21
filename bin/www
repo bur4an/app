@@ -7,26 +7,26 @@ var fs = require('fs');
 var app = require('../app');
 var debug = require('debug')('test:server');
 var path = require('path');
-//var http = require('http');
-var https = require('https');
-var certConfig = {
+var http = require('http');
+//var https = require('https');
+/*var certConfig = {
  key: fs.readFileSync(path.resolve(__dirname, '../utils/cert/key.pem'), 'utf8'),
  cert: fs.readFileSync(path.resolve(__dirname, '../utils/cert/chain.pem'), 'utf8')
-};
+};*/
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '443');
+var port = normalizePort(process.env.PORT || '80');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-//var server = http.createServer(app);
-var server = https.createServer(certConfig, app);
+var server = http.createServer(app);
+//var server = https.createServer(certConfig, app);
 
 /**
  * Listen on provided port, on all network interfaces.
